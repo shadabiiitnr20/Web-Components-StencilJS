@@ -20,6 +20,22 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface MySideDrawer {
+        "open": () => Promise<void>;
+        "opened": boolean;
+        "title": string;
+    }
+    interface MySpinner {
+    }
+    interface MyStockFinder {
+    }
+    interface MyStockPrice {
+        "stockSymbol": string;
+    }
+}
+export interface MyStockFinderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMyStockFinderElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -28,8 +44,47 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLMySideDrawerElement extends Components.MySideDrawer, HTMLStencilElement {
+    }
+    var HTMLMySideDrawerElement: {
+        prototype: HTMLMySideDrawerElement;
+        new (): HTMLMySideDrawerElement;
+    };
+    interface HTMLMySpinnerElement extends Components.MySpinner, HTMLStencilElement {
+    }
+    var HTMLMySpinnerElement: {
+        prototype: HTMLMySpinnerElement;
+        new (): HTMLMySpinnerElement;
+    };
+    interface HTMLMyStockFinderElementEventMap {
+        "ucSymbolSelected": string;
+    }
+    interface HTMLMyStockFinderElement extends Components.MyStockFinder, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLMyStockFinderElementEventMap>(type: K, listener: (this: HTMLMyStockFinderElement, ev: MyStockFinderCustomEvent<HTMLMyStockFinderElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLMyStockFinderElementEventMap>(type: K, listener: (this: HTMLMyStockFinderElement, ev: MyStockFinderCustomEvent<HTMLMyStockFinderElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLMyStockFinderElement: {
+        prototype: HTMLMyStockFinderElement;
+        new (): HTMLMyStockFinderElement;
+    };
+    interface HTMLMyStockPriceElement extends Components.MyStockPrice, HTMLStencilElement {
+    }
+    var HTMLMyStockPriceElement: {
+        prototype: HTMLMyStockPriceElement;
+        new (): HTMLMyStockPriceElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "my-side-drawer": HTMLMySideDrawerElement;
+        "my-spinner": HTMLMySpinnerElement;
+        "my-stock-finder": HTMLMyStockFinderElement;
+        "my-stock-price": HTMLMyStockPriceElement;
     }
 }
 declare namespace LocalJSX {
@@ -47,8 +102,24 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface MySideDrawer {
+        "opened"?: boolean;
+        "title"?: string;
+    }
+    interface MySpinner {
+    }
+    interface MyStockFinder {
+        "onUcSymbolSelected"?: (event: MyStockFinderCustomEvent<string>) => void;
+    }
+    interface MyStockPrice {
+        "stockSymbol"?: string;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "my-side-drawer": MySideDrawer;
+        "my-spinner": MySpinner;
+        "my-stock-finder": MyStockFinder;
+        "my-stock-price": MyStockPrice;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +127,10 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "my-side-drawer": LocalJSX.MySideDrawer & JSXBase.HTMLAttributes<HTMLMySideDrawerElement>;
+            "my-spinner": LocalJSX.MySpinner & JSXBase.HTMLAttributes<HTMLMySpinnerElement>;
+            "my-stock-finder": LocalJSX.MyStockFinder & JSXBase.HTMLAttributes<HTMLMyStockFinderElement>;
+            "my-stock-price": LocalJSX.MyStockPrice & JSXBase.HTMLAttributes<HTMLMyStockPriceElement>;
         }
     }
 }
